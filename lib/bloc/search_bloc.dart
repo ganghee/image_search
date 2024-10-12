@@ -17,21 +17,38 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchImagesEvent event,
     Emitter<SearchState> emit,
   ) async {
+    // 검색창 초기화 경우
     if (_isQueryCleared(isRefresh: event.isRefresh, query: event.query)) {
       emit(state.copyWith(searchStatus: InitialSearchStatus()));
       return;
     }
 
     PagingVo imagePagingVo = PagingVo.init();
-    if (state.searchStatus.isSuccess) {
-      imagePagingVo = (state.searchStatus as SuccessSearchStatus).imagePagingVo;
-    } else if (state.searchStatus.isInitial) {
-      emit(state.copyWith(searchStatus: LoadingSearchStatus()));
+
+    // 이미지 검색 성공 상태인 경우 페이징 정보를 유지
+    if (state.searchStatus.isSuccess && !event.isRefresh) {
+      final existingImagePagingVo =
+          (state.searchStatus as SuccessSearchStatus).imagePagingVo;
+
+      // 이미지 검색 중인 경우 또는 다음 페이지가 없는 경우 무시
+      if (existingImagePagingVo.isPageLoading ||
+          !existingImagePagingVo.hasNextPage) {
+        return;
+      }
+
+      imagePagingVo = existingImagePagingVo.copyWith(isPageLoading: true);
+      emit(
+        state.copyWith(
+          searchStatus: SuccessSearchStatus(
+            imagePagingVo: imagePagingVo as PagingVo<ImageVo>,
+          ),
+        ),
+      );
     }
 
-    // 페이지가 로딩 중이거나 마지막 페이지인 경우 추가 요청을 하지 않는다.
-    if (state.searchStatus.isLoading && imagePagingVo.hasNextPage == false) {
-      return;
+    // 초기 상태인 경우 검색 시 또는 검색어 변경 시 로딩 상태로 변경
+    if (state.searchStatus.isInitial || event.isRefresh) {
+      emit(state.copyWith(searchStatus: LoadingSearchStatus()));
     }
 
     final List<ImageVo> images = [];
@@ -53,8 +70,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         return PagingVo(
           items: images,
           page: event.isRefresh ? 1 : imagePagingVo.page + 1,
-          totalCount: newImagePagingDto.metaDto.totalCount,
-          hasNextPage: newImagePagingDto.metaDto.isEnd,
+          totalCount: newImagePagingDto.metaDto.pageableCount,
+          hasNextPage: !newImagePagingDto.metaDto.isEnd,
+          isPageLoading: false,
         );
       });
       emit(

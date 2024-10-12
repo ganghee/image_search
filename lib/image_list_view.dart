@@ -15,8 +15,8 @@ class _ImageListViewState extends State<_ImageListView> {
   @override
   void initState() {
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels >
+          _scrollController.position.maxScrollExtent - 300) {
         context.read<SearchBloc>().add(
               SearchImagesEvent(isRefresh: false),
             );
@@ -43,7 +43,7 @@ class _ImageListViewState extends State<_ImageListView> {
                 crossAxisCount: 3,
                 crossAxisSpacing: 2,
                 mainAxisSpacing: 2,
-                childAspectRatio: 1,
+                childAspectRatio: 0.8,
               ),
               itemCount: widget.images.length,
               itemBuilder: (BuildContext context, int index) {
@@ -77,7 +77,29 @@ class _ImageListViewState extends State<_ImageListView> {
               return const Center(child: Icon(Icons.error));
             },
           ),
-          Text(image.label),
+          Container(
+            alignment: Alignment.topLeft,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.center,
+                colors: [
+                  Colors.black.withOpacity(0.5),
+                  Colors.black.withOpacity(0),
+                ],
+              ),
+            ),
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              image.label,
+              maxLines: 1,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
     );
