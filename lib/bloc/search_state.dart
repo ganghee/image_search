@@ -2,27 +2,27 @@ part of 'search_bloc.dart';
 
 final class SearchState {
   final SearchStatus searchStatus;
-  final String? keyword;
+  final String? query;
 
   SearchState({
     required this.searchStatus,
-    required this.keyword,
+    required this.query,
   });
 
   factory SearchState.initial() {
     return SearchState(
-      searchStatus: LoadingSearchStatus(),
-      keyword: '',
+      searchStatus: InitialSearchStatus(),
+      query: '',
     );
   }
 
   SearchState copyWith({
     SearchStatus? searchStatus,
-    String? keyword,
+    String? query,
   }) {
     return SearchState(
       searchStatus: searchStatus ?? this.searchStatus,
-      keyword: keyword,
+      query: query ?? this.query,
     );
   }
 }

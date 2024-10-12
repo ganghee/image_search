@@ -17,7 +17,9 @@ class _ImageListViewState extends State<_ImageListView> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        context.read<SearchBloc>().add(SearchImagesEvent());
+        context.read<SearchBloc>().add(
+              SearchImagesEvent(isRefresh: false),
+            );
       }
     });
     super.initState();
@@ -25,22 +27,30 @@ class _ImageListViewState extends State<_ImageListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.builder(
-        controller: _scrollController,
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 2,
-          mainAxisSpacing: 2,
-          childAspectRatio: 1,
-        ),
-        itemCount: widget.images.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _imageItemView(image: widget.images[index]);
-        },
-      ),
-    );
+    return widget.images.isEmpty
+        ? Padding(
+            padding: const EdgeInsets.only(top: 80),
+            child: _iconMessageView(
+              icon: Icons.search_off,
+              message: '검색 결과가 없습니다',
+            ),
+          )
+        : Expanded(
+            child: GridView.builder(
+              controller: _scrollController,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+                childAspectRatio: 1,
+              ),
+              itemCount: widget.images.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _imageItemView(image: widget.images[index]);
+              },
+            ),
+          );
   }
 
   Widget _imageItemView({required ImageVo image}) {
@@ -61,8 +71,10 @@ class _ImageListViewState extends State<_ImageListView> {
           Image.network(
             image.imageUrl,
             fit: BoxFit.cover,
+            cacheHeight: image.height,
+            cacheWidth: image.width,
             errorBuilder: (context, error, stackTrace) {
-              return const Expanded(child: Center(child: Icon(Icons.error)));
+              return const Center(child: Icon(Icons.error));
             },
           ),
           Text(image.label),

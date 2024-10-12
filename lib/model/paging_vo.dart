@@ -12,7 +12,7 @@ class PagingVo<T> {
   });
 
   factory PagingVo.init({
-    int page = 1,
+    int page = 0,
     int totalCount = 0,
     bool hasNextPage = true,
     List<T> items = const [],

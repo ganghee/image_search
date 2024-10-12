@@ -1,13 +1,18 @@
+import 'package:domain/use_case/search_images_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:locator/get_it.dart';
 import 'package:search/bloc/search_bloc.dart';
 import 'package:search/model/image_vo.dart';
 
 part 'favorite_page.dart';
+part 'icon_message_view.dart';
 part 'image_list_view.dart';
 part 'search_page.dart';
 
 void main() {
+  initLocator();
+
   runApp(const MyApp());
 }
 
@@ -26,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (_) => SearchBloc(),
+        create: (_) => SearchBloc(locator<SearchImagesUseCase>()),
         child: const _HomeView(),
       ),
     );
@@ -47,12 +52,10 @@ class _HomeViewState extends State<_HomeView>
     vsync: this,
     initialIndex: 0,
   );
-  late final PageController _pageController = PageController();
 
   @override
   void dispose() {
     _tabController.dispose();
-    _pageController.dispose();
     super.dispose();
   }
 

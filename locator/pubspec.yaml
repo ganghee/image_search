@@ -1,5 +1,4 @@
 name: locator
-version: 0.0.1
 
 environment:
   sdk: ^3.4.0
@@ -8,6 +7,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  search:
+    path: ../
+
+  remote:
+    path: ../remote
+
+  data:
+    path: ../data
+
+  domain:
+    path: ../domain
+
+  dio: ^5.7.0
+  get_it: ^8.0.0
 
 dev_dependencies:
   flutter_lints: ^4.0.0

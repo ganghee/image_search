@@ -8,7 +8,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  data:
+    path: ../data
+
+  domain:
+    path: ../domain
+
+  locator:
+    path: ../locator
+
+  dio: ^5.7.0
+  retrofit: ^4.4.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  build_runner: ^2.4.11
+  retrofit_generator: ^8.2.1

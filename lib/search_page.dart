@@ -8,6 +8,15 @@ class _SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<_SearchPage> {
+  late final TextEditingController _textFieldController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    _textFieldController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,10 +25,11 @@ class _SearchPageState extends State<_SearchPage> {
           children: [
             Expanded(
               child: TextField(
+                controller: _textFieldController,
                 textInputAction: TextInputAction.search,
                 decoration: const InputDecoration(
                   hintText: '검색어를 입력하세요',
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: Icon(Icons.search, color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
@@ -30,15 +40,11 @@ class _SearchPageState extends State<_SearchPage> {
                 onChanged: (text) {
                   context
                       .read<SearchBloc>()
-                      .add(SearchImagesEvent(keyword: text));
+                      .add(SearchImagesEvent(query: text, isRefresh: true));
                 },
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.clear),
-              color: Colors.grey,
-              onPressed: () {},
-            ),
+            _queryClearIconButton(),
           ],
         ),
         _searchStatusView(
@@ -51,7 +57,6 @@ class _SearchPageState extends State<_SearchPage> {
   }
 
   Widget _searchStatusView({required SearchStatus searchStatus}) {
-    print('searchStatus: $searchStatus');
     if (searchStatus.isInitial) {
       return _initialView();
     } else if (searchStatus.isLoading) {
@@ -91,16 +96,31 @@ class _SearchPageState extends State<_SearchPage> {
   }
 
   Widget _initialView() {
-    return const Expanded(
+    return Expanded(
       child: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 100),
-            Icon(Icons.image_search, size: 80),
-            SizedBox(height: 10),
-            Text('검색어를 입력하세요'),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 100),
+          child: _iconMessageView(
+            icon: Icons.image_search,
+            message: '검색어를 입력하세요',
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _queryClearIconButton() {
+    return Visibility(
+      visible: _textFieldController.text.isNotEmpty,
+      child: IconButton(
+        icon: const Icon(Icons.clear),
+        color: Colors.grey,
+        onPressed: () {
+          _textFieldController.clear();
+          context
+              .read<SearchBloc>()
+              .add(SearchImagesEvent(query: '', isRefresh: true));
+        },
       ),
     );
   }

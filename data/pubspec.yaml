@@ -8,6 +8,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  domain:
+    path: ../domain
+
+  locator:
+    path: ../locator
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

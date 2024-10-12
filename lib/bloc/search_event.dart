@@ -3,9 +3,10 @@ part of 'search_bloc.dart';
 sealed class SearchEvent {}
 
 final class SearchImagesEvent extends SearchEvent {
-  final String? keyword;
+  final String? query;
+  final bool isRefresh;
 
-  SearchImagesEvent({this.keyword});
+  SearchImagesEvent({required this.isRefresh, this.query});
 }
 
 final class UpdateLikeEvent extends SearchEvent {
@@ -13,10 +14,4 @@ final class UpdateLikeEvent extends SearchEvent {
   final bool isFavorite;
 
   UpdateLikeEvent(this.imageId, this.isFavorite);
-}
-
-final class UpdateKeyword extends SearchEvent {
-  final String keyword;
-
-  UpdateKeyword(this.keyword);
 }
