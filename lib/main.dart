@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:search/bloc/search_bloc.dart';
+import 'package:search/model/image_vo.dart';
 
 part 'favorite_page.dart';
 part 'image_list_view.dart';
@@ -15,10 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          surface: Colors.white,
+        ),
         useMaterial3: true,
       ),
-      home: _HomeView(),
+      home: BlocProvider(
+        create: (_) => SearchBloc(),
+        child: const _HomeView(),
+      ),
     );
   }
 }

@@ -10,6 +10,8 @@ class _FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<_FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    return _ImageListView();
+    return _ImageListView(
+      images: [],
+    );
   }
 }
