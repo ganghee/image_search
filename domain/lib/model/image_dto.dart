@@ -47,14 +47,14 @@ class ImageDto {
     bool? isFavorite = false,
   }) =>
       ImageDto(
-        collection: collection ?? '',
-        datetime: datetime ?? '',
-        displaySiteName: displaySiteName ?? '',
-        docUrl: docUrl ?? '',
-        height: height ?? 200,
-        imageUrl: imageUrl ?? '',
-        thumbnailUrl: thumbnailUrl ?? '',
-        width: width ?? 200,
-        isFavorite: isFavorite ?? false,
+        collection: collection ?? this.collection,
+        datetime: datetime ?? this.datetime,
+        displaySiteName: displaySiteName ?? this.displaySiteName,
+        docUrl: docUrl ?? this.docUrl,
+        height: height ?? this.height,
+        imageUrl: imageUrl ?? this.imageUrl,
+        thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
+        width: width ?? this.width,
+        isFavorite: isFavorite ?? this.isFavorite,
       );
 }

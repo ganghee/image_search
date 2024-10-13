@@ -40,4 +40,8 @@ class SearchRepositoryImpl extends SearchRepository {
         .map((favoriteImageEntity) => favoriteImageEntity.mapper())
         .toList();
   }
+
+  @override
+  Future<void> removeFavoriteImage({required String imageId}) =>
+      _imageLocalDataSource.removeFavoriteImage(imageId: imageId);
 }

@@ -12,4 +12,6 @@ abstract class SearchRepository {
   });
 
   Future<List<ImageDto>> getFavoriteImages();
+
+  Future<void> removeFavoriteImage({required String imageId});
 }

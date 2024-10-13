@@ -51,4 +51,7 @@ _searchModule() {
   locator.registerLazySingleton(
     () => SaveFavoriteImageUseCase(searchRepository: locator()),
   );
+  locator.registerLazySingleton(
+    () => RemoveFavoriteImageUseCase(searchRepository: locator()),
+  );
 }

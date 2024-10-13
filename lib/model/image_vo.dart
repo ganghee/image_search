@@ -17,7 +17,8 @@ class ImageVo {
     required this.width,
   });
 
-  factory ImageVo.copyWith({
+  ImageVo copyWith({
+    String? imageId,
     String? imageUrl,
     String? label,
     bool? isFavorite,
@@ -25,12 +26,12 @@ class ImageVo {
     int? width,
   }) =>
       ImageVo(
-        imageId: imageUrl ?? '',
-        imageUrl: imageUrl ?? '',
-        label: label ?? '',
-        isFavorite: isFavorite ?? false,
-        height: height ?? 200,
-        width: width ?? 200,
+        imageId: imageId ?? this.imageId,
+        imageUrl: imageUrl ?? this.imageUrl,
+        label: label ?? this.label,
+        isFavorite: isFavorite ?? this.isFavorite,
+        height: height ?? this.height,
+        width: width ?? this.width,
       );
 
   ImageDto toDto() => ImageDto(

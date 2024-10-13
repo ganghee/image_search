@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           locator<SearchImagesUseCase>(),
           locator<GetFavoriteImagesUseCase>(),
           locator<SaveFavoriteImageUseCase>(),
+          locator<RemoveFavoriteImageUseCase>(),
         )..add(GetFavoriteImagesEvent()),
         child: const _HomeView(),
       ),

@@ -1,5 +1,6 @@
 import 'package:domain/model/image_dto.dart';
 import 'package:domain/use_case/get_favorite_images_use_case.dart';
+import 'package:domain/use_case/remove_favorite_image_use_case.dart';
 import 'package:domain/use_case/save_favorite_image_use_case.dart';
 import 'package:domain/use_case/search_images_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +14,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchImagesUseCase _searchImagesUseCase;
   final GetFavoriteImagesUseCase _getFavoriteImagesUseCase;
   final SaveFavoriteImageUseCase _saveFavoriteImageUseCase;
+  final RemoveFavoriteImageUseCase _removeFavoriteImageUseCase;
 
   SearchBloc(
     this._searchImagesUseCase,
     this._getFavoriteImagesUseCase,
     this._saveFavoriteImageUseCase,
+    this._removeFavoriteImageUseCase,
   ) : super(SearchState.initial()) {
     on<SearchImagesEvent>(_searchImages);
     on<UpdateFavoriteEvent>(_updateImageFavorite);
@@ -118,7 +121,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) {
     final ImageVo selectedImageVo = event.imageVo;
     if (selectedImageVo.isFavorite) {
-      // todo: remove favorite image
+      final favoriteImages = state.favoriteImages
+          .where((imageVo) => imageVo.imageId != selectedImageVo.imageId)
+          .toList();
+      emit(state.copyWith(favoriteImages: favoriteImages));
+      _removeFavoriteImageUseCase(imageId: selectedImageVo.imageId);
     } else {
       final favoriteImages = state.favoriteImages.toList();
       favoriteImages.add(selectedImageVo);
