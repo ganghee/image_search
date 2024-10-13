@@ -17,9 +17,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchImagesEvent event,
     Emitter<SearchState> emit,
   ) async {
-    // 검색창 초기화 경우
+    // 검색창 초기화 경우 초기 상태로 변경
     if (_isQueryCleared(isRefresh: event.isRefresh, query: event.query)) {
       emit(state.copyWith(searchStatus: InitialSearchStatus()));
+      return;
+    }
+
+    // 검색어가 동일하고 새로고침이 아닌 경우(페이징이 아닌 경우) 무시
+    if (state.query == event.query && event.isRefresh) {
       return;
     }
 
@@ -58,7 +63,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     try {
       final newImagePagingVo = await _searchImagesUseCase(
-        query: event.isRefresh ? (event.query ?? '') : (state.query ?? ''),
+        query: event.query ?? (state.query ?? ''),
         page: event.isRefresh ? 1 : imagePagingVo.page + 1,
       ).then((newImagePagingDto) {
         images.addAll(
@@ -77,7 +82,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       });
       emit(
         state.copyWith(
-          query: event.query ?? state.query,
+          query: event.query ?? (state.query ?? ''),
           searchStatus: SuccessSearchStatus(imagePagingVo: newImagePagingVo),
         ),
       );

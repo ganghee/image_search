@@ -14,6 +14,8 @@ class _SearchPageState extends State<_SearchPage>
   late final TextEditingController _textFieldController =
       TextEditingController();
   late final FocusNode _focusNode = FocusNode();
+  Timer? _debounce;
+  late final Duration _debounceDuration = const Duration(milliseconds: 300);
 
   @override
   void initState() {
@@ -28,6 +30,7 @@ class _SearchPageState extends State<_SearchPage>
   @override
   void dispose() {
     _textFieldController.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
@@ -54,9 +57,18 @@ class _SearchPageState extends State<_SearchPage>
                   ),
                 ),
                 onChanged: (text) {
-                  context
-                      .read<SearchBloc>()
-                      .add(SearchImagesEvent(query: text, isRefresh: true));
+                  if (_debounce?.isActive ?? false) _debounce?.cancel();
+                  _debounce = Timer(
+                    _debounceDuration,
+                    () {
+                      context.read<SearchBloc>().add(
+                            SearchImagesEvent(
+                              query: text.trim(),
+                              isRefresh: true,
+                            ),
+                          );
+                    },
+                  );
                 },
               ),
             ),
