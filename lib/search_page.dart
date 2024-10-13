@@ -9,7 +9,8 @@ class _SearchPage extends StatefulWidget {
   State<_SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<_SearchPage> {
+class _SearchPageState extends State<_SearchPage>
+    with AutomaticKeepAliveClientMixin {
   late final TextEditingController _textFieldController =
       TextEditingController();
   late final FocusNode _focusNode = FocusNode();
@@ -32,6 +33,7 @@ class _SearchPageState extends State<_SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         Row(
@@ -127,4 +129,7 @@ class _SearchPageState extends State<_SearchPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
