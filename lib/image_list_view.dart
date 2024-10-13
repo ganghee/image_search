@@ -48,22 +48,27 @@ class _ImageListViewState extends State<_ImageListView> {
             message: widget.emptyMessage ?? '검색 결과가 없습니다',
             topMargin: 120,
           )
-        : Expanded(
-            child: GridView.builder(
-              padding: EdgeInsets.only(top: widget.topPadding),
-              controller: _scrollController,
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 2,
-                mainAxisSpacing: 2,
-                childAspectRatio: 0.8,
+        : Flex(
+            direction: Axis.vertical,
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  padding: EdgeInsets.only(top: widget.topPadding),
+                  controller: _scrollController,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 2,
+                    childAspectRatio: 0.8,
+                  ),
+                  itemCount: widget.images.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _imageItemView(imageVo: widget.images[index]);
+                  },
+                ),
               ),
-              itemCount: widget.images.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _imageItemView(imageVo: widget.images[index]);
-              },
-            ),
+            ],
           );
   }
 
