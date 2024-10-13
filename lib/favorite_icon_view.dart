@@ -39,6 +39,13 @@ class _FavoriteIconViewState extends State<_FavoriteIconView>
   }
 
   @override
+  void dispose() {
+    _favoriteAnimationController.dispose();
+    _favoriteCurvedAnimation.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) {

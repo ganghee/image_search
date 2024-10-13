@@ -33,6 +33,12 @@ class _ImageListViewState extends State<_ImageListView> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return widget.images.isEmpty
         ? iconMessageView(
@@ -60,7 +66,7 @@ class _ImageListViewState extends State<_ImageListView> {
 
   Widget _imageItemView({required ImageVo imageVo}) {
     return GestureDetector(
-      key: ValueKey(imageVo.imageId),
+      key: ValueKey(imageVo.imageId + imageVo.isFavorite.toString()),
       onTap: () {
         _unFocusTextField();
         Navigator.of(context).push(

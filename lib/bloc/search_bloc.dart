@@ -118,20 +118,24 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   _updateImageFavorite(
     UpdateFavoriteEvent event,
     Emitter<SearchState> emit,
-  ) {
+  ) async {
     final ImageVo selectedImageVo = event.imageVo;
     if (selectedImageVo.isFavorite) {
+      await _removeFavoriteImageUseCase(imageId: selectedImageVo.imageId);
       final favoriteImages = state.favoriteImages
           .where((imageVo) => imageVo.imageId != selectedImageVo.imageId)
           .toList();
       emit(state.copyWith(favoriteImages: favoriteImages));
-      _removeFavoriteImageUseCase(imageId: selectedImageVo.imageId);
     } else {
+      await _saveFavoriteImageUseCase(imageDto: selectedImageVo.toDto());
       final favoriteImages = state.favoriteImages.toList();
-      favoriteImages.add(selectedImageVo);
+      favoriteImages.add(selectedImageVo.copyWith(isFavorite: true));
       emit(state.copyWith(favoriteImages: favoriteImages));
-      _saveFavoriteImageUseCase(imageDto: selectedImageVo.toDto());
     }
+    _updateSearchedFavoriteStatus(
+      emit: emit,
+      selectedImageVo: selectedImageVo,
+    );
   }
 
   _getFavoriteImages(
@@ -140,5 +144,31 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     final List<ImageDto> favoriteImages = await _getFavoriteImagesUseCase();
     emit(state.copyWith(favoriteImages: favoriteImages.mapper()));
+  }
+
+  _updateSearchedFavoriteStatus({
+    required Emitter<SearchState> emit,
+    required ImageVo selectedImageVo,
+  }) {
+    if (state.searchStatus.isSuccess) {
+      final searchedImages =
+          (state.searchStatus as SuccessSearchStatus).imagePagingVo.items;
+      final List<ImageVo> updatedFavoriteImages = searchedImages.map((imageVo) {
+        if (imageVo.imageId == selectedImageVo.imageId) {
+          return imageVo.copyWith(isFavorite: !selectedImageVo.isFavorite);
+        } else {
+          return imageVo;
+        }
+      }).toList();
+      emit(
+        state.copyWith(
+          searchStatus: SuccessSearchStatus(
+            imagePagingVo: (state.searchStatus as SuccessSearchStatus)
+                .imagePagingVo
+                .copyWith(items: updatedFavoriteImages),
+          ),
+        ),
+      );
+    }
   }
 }
