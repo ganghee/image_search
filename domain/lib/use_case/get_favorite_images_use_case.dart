@@ -8,7 +8,5 @@ class GetFavoriteImagesUseCase {
     required SearchRepository searchRepository,
   }) : _searchRepository = searchRepository;
 
-  Future<List<ImageDto>> call() async {
-    return await _searchRepository.getFavoriteImages();
-  }
+  Future<List<ImageDto>> call() => _searchRepository.getFavoriteImages();
 }

@@ -23,13 +23,12 @@ final class SearchState {
     SearchStatus? searchStatus,
     String? query,
     List<ImageVo>? favoriteImages,
-  }) {
-    return SearchState(
-      searchStatus: searchStatus ?? this.searchStatus,
-      query: query ?? this.query,
-      favoriteImages: favoriteImages ?? this.favoriteImages,
-    );
-  }
+  }) =>
+      SearchState(
+        searchStatus: searchStatus ?? this.searchStatus,
+        query: query ?? this.query,
+        favoriteImages: favoriteImages ?? this.favoriteImages,
+      );
 }
 
 sealed class SearchStatus {}

@@ -15,20 +15,19 @@ class SearchImagesUseCase {
   Future<PagingDto<ImageDto>> call({
     required String query,
     required int page,
-  }) async {
-    return await _searchRepository
-        .searchImages(query: query, page: page)
-        .then((paging) async {
-      final List<ImageDto> favoriteImages = await _getFavoriteImagesUseCase();
-      final updateFavoriteImages = paging.documents.map((searchedImageDto) {
-        if (favoriteImages.any((favoriteImage) =>
-            favoriteImage.imageUrl == searchedImageDto.imageUrl)) {
-          return searchedImageDto.copyWith(isFavorite: true);
-        } else {
-          return searchedImageDto;
-        }
-      }).toList();
-      return paging.copyWith(documents: updateFavoriteImages);
-    });
-  }
+  }) =>
+      _searchRepository
+          .searchImages(query: query, page: page)
+          .then((paging) async {
+        final List<ImageDto> favoriteImages = await _getFavoriteImagesUseCase();
+        final updateFavoriteImages = paging.documents.map((searchedImageDto) {
+          if (favoriteImages.any((favoriteImage) =>
+              favoriteImage.imageUrl == searchedImageDto.imageUrl)) {
+            return searchedImageDto.copyWith(isFavorite: true);
+          } else {
+            return searchedImageDto;
+          }
+        }).toList();
+        return paging.copyWith(documents: updateFavoriteImages);
+      });
 }
