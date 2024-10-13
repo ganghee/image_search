@@ -8,4 +8,13 @@ class PagingDto<T> {
     required this.metaDto,
     required this.documents,
   });
+
+  PagingDto<T> copyWith({
+    MetaDto? metaDto,
+    List<T>? documents,
+  }) =>
+      PagingDto(
+        metaDto: metaDto ?? this.metaDto,
+        documents: documents ?? this.documents,
+      );
 }

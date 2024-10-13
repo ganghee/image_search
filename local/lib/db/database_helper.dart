@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-const String favoriteDB = 'favoriteDB';
+const String favoriteDB = 'favorite_db';
 const String favoriteImageTable = 'favoriteImageTable';
 
 class DatabaseHelper {
@@ -27,12 +27,12 @@ class DatabaseHelper {
 
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE $favoriteDB(
+    CREATE TABLE $favoriteImageTable(
       imageId TEXT PRIMARY KEY,
-      height INTEGER,
-      width INTEGER,
       imageUrl TEXT,
       displaySiteName TEXT,
+      height INTEGER,
+      width INTEGER
     )
     ''');
   }

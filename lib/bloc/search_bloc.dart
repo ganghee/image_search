@@ -30,7 +30,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     // 검색창 초기화 경우 초기 상태로 변경
     if (_isQueryCleared(isRefresh: event.isRefresh, query: event.query)) {
-      emit(state.copyWith(searchStatus: InitialSearchStatus()));
+      emit(
+        state.copyWith(searchStatus: InitialSearchStatus(), query: event.query),
+      );
       return;
     }
 
@@ -114,11 +116,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     UpdateFavoriteEvent event,
     Emitter<SearchState> emit,
   ) {
-    final ImageVo imageVo = event.imageVo;
-    if (imageVo.isFavorite) {
+    final ImageVo selectedImageVo = event.imageVo;
+    if (selectedImageVo.isFavorite) {
       // todo: remove favorite image
     } else {
-      _saveFavoriteImageUseCase(imageDto: imageVo.toDto());
+      final favoriteImages = state.favoriteImages.toList();
+      favoriteImages.add(selectedImageVo);
+      emit(state.copyWith(favoriteImages: favoriteImages));
+      _saveFavoriteImageUseCase(imageDto: selectedImageVo.toDto());
     }
   }
 

@@ -42,6 +42,7 @@ class ImageVo {
         imageUrl: imageUrl,
         thumbnailUrl: '',
         width: width,
+        isFavorite: isFavorite,
       );
 }
 
@@ -50,7 +51,7 @@ extension ImageDtoExtension on ImageDto {
         imageId: imageUrl,
         imageUrl: imageUrl,
         label: displaySiteName,
-        isFavorite: false,
+        isFavorite: isFavorite,
         height: height,
         width: width,
       );

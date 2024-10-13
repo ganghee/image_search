@@ -9,6 +9,7 @@ import 'package:search/detail/image_detail_screen.dart';
 import 'package:search/icon_message_view.dart';
 import 'package:search/model/image_vo.dart';
 
+part 'favorite_icon_view.dart';
 part 'favorite_page.dart';
 part 'image_list_view.dart';
 part 'search_page.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           locator<SearchImagesUseCase>(),
           locator<GetFavoriteImagesUseCase>(),
           locator<SaveFavoriteImageUseCase>(),
-        ),
+        )..add(GetFavoriteImagesEvent()),
         child: const _HomeView(),
       ),
     );

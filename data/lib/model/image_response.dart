@@ -45,5 +45,6 @@ class ImageResponse extends DataToDomainMapper<ImageDto> {
         imageUrl: imageUrl,
         thumbnailUrl: thumbnailUrl,
         width: width,
+        isFavorite: false,
       );
 }

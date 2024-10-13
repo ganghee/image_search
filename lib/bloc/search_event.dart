@@ -12,7 +12,7 @@ final class SearchImagesEvent extends SearchEvent {
 final class UpdateFavoriteEvent extends SearchEvent {
   final ImageVo imageVo;
 
-  UpdateFavoriteEvent(this.imageVo);
+  UpdateFavoriteEvent({required this.imageVo});
 }
 
 final class GetFavoriteImagesEvent extends SearchEvent {}

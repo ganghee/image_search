@@ -16,7 +16,7 @@ class FavoriteImageEntity extends DataToDomainMapper<ImageDto> {
     required this.width,
   });
 
-  toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'imageId': imageId,
         'imageUrl': imageUrl,
         'displaySiteName': displaySiteName,
@@ -44,6 +44,7 @@ class FavoriteImageEntity extends DataToDomainMapper<ImageDto> {
         imageUrl: imageUrl,
         thumbnailUrl: '',
         width: width,
+        isFavorite: true,
       );
 }
 

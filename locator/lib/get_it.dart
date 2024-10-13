@@ -40,7 +40,10 @@ _searchModule() {
     ),
   );
   locator.registerLazySingleton(
-    () => SearchImagesUseCase(searchRepository: locator()),
+    () => SearchImagesUseCase(
+      searchRepository: locator(),
+      getFavoriteImagesUseCase: locator(),
+    ),
   );
   locator.registerLazySingleton(
     () => GetFavoriteImagesUseCase(searchRepository: locator()),

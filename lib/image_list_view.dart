@@ -80,6 +80,7 @@ class _ImageListViewState extends State<_ImageListView> {
         child: Stack(
           fit: StackFit.expand,
           children: [
+            // 이미지
             Image.network(
               imageVo.imageUrl,
               fit: BoxFit.cover,
@@ -89,6 +90,7 @@ class _ImageListViewState extends State<_ImageListView> {
                 return const Center(child: Icon(Icons.error));
               },
             ),
+            // 이미지 라벨
             Container(
               alignment: Alignment.topLeft,
               decoration: BoxDecoration(
@@ -109,6 +111,21 @@ class _ImageListViewState extends State<_ImageListView> {
                   color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            // 좋아요 아이콘
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: _FavoriteIconView(
+                  isFavorite: imageVo.isFavorite,
+                  onTap: () {
+                    context.read<SearchBloc>().add(
+                          UpdateFavoriteEvent(imageVo: imageVo),
+                        );
+                  },
                 ),
               ),
             ),

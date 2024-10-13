@@ -20,7 +20,7 @@ class FavoriteLocalDataSourceImpl implements FavoriteLocalDataSource {
   @override
   Future<List<FavoriteImageEntity>> getFavoriteImages() async {
     final db = await DatabaseHelper.instance.database;
-    final queries = await db.query(favoriteImageTable, orderBy: 'date DESC');
+    final queries = await db.query(favoriteImageTable);
     return queries
         .map((element) => FavoriteImageEntity.fromJson(element))
         .toList();
