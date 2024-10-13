@@ -19,7 +19,7 @@ class _ImageListViewState extends State<_ImageListView> {
   @override
   void initState() {
     _scrollController.addListener(() {
-      unFocusTextField();
+      _unFocusTextField();
       if (_scrollController.position.pixels >
           _scrollController.position.maxScrollExtent - 300) {
         context.read<SearchBloc>().add(
@@ -59,7 +59,7 @@ class _ImageListViewState extends State<_ImageListView> {
   Widget _imageItemView({required ImageVo imageVo}) {
     return GestureDetector(
       onTap: () {
-        unFocusTextField();
+        _unFocusTextField();
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ImageDetailScreen(imageUrl: imageVo.imageUrl),
@@ -118,7 +118,7 @@ class _ImageListViewState extends State<_ImageListView> {
     );
   }
 
-  unFocusTextField() {
+  _unFocusTextField() {
     if (widget.focusNode?.hasFocus == true) {
       widget.focusNode?.unfocus();
     }
