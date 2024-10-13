@@ -12,10 +12,12 @@ class _FavoritePageState extends State<_FavoritePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _ImageListView(
+    final imageListInfo = FavoriteImageListInfoImpl();
+    imageListInfo.setImageItems(
       images: context.select((SearchBloc bloc) => bloc.state.favoriteImages),
-      emptyMessage: '즐겨찾기한 이미지가 없습니다',
     );
+
+    return _ImageListView(imageListInfo: imageListInfo);
   }
 
   @override

@@ -7,6 +7,8 @@ import 'package:locator/get_it.dart';
 import 'package:search/bloc/search_bloc.dart';
 import 'package:search/detail/image_detail_screen.dart';
 import 'package:search/icon_message_view.dart';
+import 'package:search/image_list/image_list_info.dart';
+import 'package:search/image_list/image_list_info_impl.dart';
 import 'package:search/model/image_vo.dart';
 
 part 'favorite_icon_view.dart';

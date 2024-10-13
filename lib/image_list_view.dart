@@ -1,16 +1,10 @@
 part of 'main.dart';
 
 class _ImageListView extends StatefulWidget {
-  final List<ImageVo> images;
-  final FocusNode? focusNode;
-  final String? emptyMessage;
-  final double topPadding;
+  final ImageListInfo imageListInfo;
 
   const _ImageListView({
-    required this.images,
-    this.focusNode,
-    this.emptyMessage,
-    this.topPadding = 0,
+    required this.imageListInfo,
   });
 
   @override
@@ -26,9 +20,7 @@ class _ImageListViewState extends State<_ImageListView> {
       _unFocusTextField();
       if (_scrollController.position.pixels >
           _scrollController.position.maxScrollExtent - 300) {
-        context.read<SearchBloc>().add(
-              SearchImagesEvent(isRefresh: false),
-            );
+        widget.imageListInfo.getPaging(context: context);
       }
     });
     super.initState();
@@ -42,10 +34,10 @@ class _ImageListViewState extends State<_ImageListView> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.images.isEmpty
+    return widget.imageListInfo.imageItems.isEmpty
         ? iconMessageView(
             icon: Icons.search_off,
-            message: widget.emptyMessage ?? '검색 결과가 없습니다',
+            message: widget.imageListInfo.emptyMessage(),
             topMargin: 120,
           )
         : Flex(
@@ -53,7 +45,8 @@ class _ImageListViewState extends State<_ImageListView> {
             children: [
               Expanded(
                 child: GridView.builder(
-                  padding: EdgeInsets.only(top: widget.topPadding),
+                  padding:
+                      EdgeInsets.only(top: widget.imageListInfo.topPadding),
                   controller: _scrollController,
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -62,9 +55,11 @@ class _ImageListViewState extends State<_ImageListView> {
                     mainAxisSpacing: 2,
                     childAspectRatio: 0.8,
                   ),
-                  itemCount: widget.images.length,
+                  itemCount: widget.imageListInfo.imageItems.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return _imageItemView(imageVo: widget.images[index]);
+                    return _imageItemView(
+                      imageVo: widget.imageListInfo.imageItems[index],
+                    );
                   },
                 ),
               ),
@@ -153,8 +148,8 @@ class _ImageListViewState extends State<_ImageListView> {
   }
 
   _unFocusTextField() {
-    if (widget.focusNode?.hasFocus == true) {
-      widget.focusNode?.unfocus();
+    if (widget.imageListInfo.focusNode?.hasFocus == true) {
+      widget.imageListInfo.focusNode?.unfocus();
     }
   }
 }

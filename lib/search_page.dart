@@ -92,11 +92,12 @@ class _SearchPageState extends State<_SearchPage>
     } else if (searchStatus.isLoading) {
       return _loadingView();
     } else if (searchStatus.isSuccess) {
-      return _ImageListView(
+      final imageListInfo = SearchImageListInfoImpl();
+      imageListInfo.setImageItems(
         images: (searchStatus as SuccessSearchStatus).imagePagingVo.items,
-        focusNode: _focusNode,
-        topPadding: 70,
       );
+      imageListInfo.setFocusNode(focusNode: _focusNode);
+      return _ImageListView(imageListInfo: imageListInfo);
     } else if (searchStatus.isFailure) {
       return _errorView();
     } else {
