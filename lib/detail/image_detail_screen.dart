@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:search/icon_message_view.dart';
 
 class ImageDetailScreen extends StatelessWidget {
@@ -9,12 +8,6 @@ class ImageDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: _ImageDetailBodyView(imageUrl: imageUrl),
@@ -44,28 +37,41 @@ class _ImageDetailBodyViewState extends State<_ImageDetailBodyView> {
 
   @override
   Widget build(BuildContext context) {
-    return InteractiveViewer(
-      transformationController: transformationController,
-      maxScale: 3,
-      child: GestureDetector(
-        onDoubleTapDown: (d) => _doubleTapDetails = d,
-        onDoubleTap: _changeImageSize,
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Image.network(
-            widget.imageUrl,
-            errorBuilder: (context, error, stackTrace) {
-              return iconMessageView(
-                icon: Icons.error,
-                message: '이미지를 불러오지 못했습니다',
-                iconSize: 40,
-                textColor: Colors.white,
-              );
-            },
+    return Stack(
+      children: [
+        InteractiveViewer(
+          transformationController: transformationController,
+          maxScale: 3,
+          child: GestureDetector(
+            onDoubleTapDown: (d) => _doubleTapDetails = d,
+            onDoubleTap: _changeImageSize,
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Image.network(
+                widget.imageUrl,
+                errorBuilder: (context, error, stackTrace) {
+                  return iconMessageView(
+                    icon: Icons.error,
+                    message: '이미지를 불러오지 못했습니다',
+                    iconSize: 40,
+                    textColor: Colors.white,
+                  );
+                },
+              ),
+            ),
           ),
         ),
-      ),
+        Positioned(
+          top: 40,
+          left: 20,
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+      ],
     );
   }
 
