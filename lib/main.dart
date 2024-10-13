@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locator/get_it.dart';
 import 'package:search/bloc/search_bloc.dart';
+import 'package:search/detail/image_detail_screen.dart';
+import 'package:search/icon_message_view.dart';
 import 'package:search/model/image_vo.dart';
 
 part 'favorite_page.dart';
-part 'icon_message_view.dart';
 part 'image_list_view.dart';
 part 'search_page.dart';
 
@@ -75,9 +76,9 @@ class _HomeViewState extends State<_HomeView>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: const [
-                  _SearchPage(),
-                  _FavoritePage(),
+                children: [
+                  _SearchPage(tabController: _tabController),
+                  const _FavoritePage(),
                 ],
               ),
             ),

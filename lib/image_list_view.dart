@@ -2,8 +2,12 @@ part of 'main.dart';
 
 class _ImageListView extends StatefulWidget {
   final List<ImageVo> images;
+  final FocusNode? focusNode;
 
-  const _ImageListView({required this.images});
+  const _ImageListView({
+    required this.images,
+    this.focusNode,
+  });
 
   @override
   State<_ImageListView> createState() => _ImageListViewState();
@@ -15,6 +19,7 @@ class _ImageListViewState extends State<_ImageListView> {
   @override
   void initState() {
     _scrollController.addListener(() {
+      unFocusTextField();
       if (_scrollController.position.pixels >
           _scrollController.position.maxScrollExtent - 300) {
         context.read<SearchBloc>().add(
@@ -28,12 +33,10 @@ class _ImageListViewState extends State<_ImageListView> {
   @override
   Widget build(BuildContext context) {
     return widget.images.isEmpty
-        ? Padding(
-            padding: const EdgeInsets.only(top: 80),
-            child: _iconMessageView(
-              icon: Icons.search_off,
-              message: '검색 결과가 없습니다',
-            ),
+        ? iconMessageView(
+            icon: Icons.search_off,
+            message: '검색 결과가 없습니다',
+            topMargin: 80,
           )
         : Expanded(
             child: GridView.builder(
@@ -47,61 +50,77 @@ class _ImageListViewState extends State<_ImageListView> {
               ),
               itemCount: widget.images.length,
               itemBuilder: (BuildContext context, int index) {
-                return _imageItemView(image: widget.images[index]);
+                return _imageItemView(imageVo: widget.images[index]);
               },
             ),
           );
   }
 
-  Widget _imageItemView({required ImageVo image}) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.black.withOpacity(0.1),
-            Colors.black.withOpacity(0.05),
+  Widget _imageItemView({required ImageVo imageVo}) {
+    return GestureDetector(
+      onTap: () {
+        unFocusTextField();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ImageDetailScreen(imageUrl: imageVo.imageUrl),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.black.withOpacity(0.1),
+              Colors.black.withOpacity(0.05),
+            ],
+          ),
+        ),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.network(
+              imageVo.imageUrl,
+              fit: BoxFit.cover,
+              cacheHeight: imageVo.height,
+              cacheWidth: imageVo.width,
+              errorBuilder: (context, error, stackTrace) {
+                return const Center(child: Icon(Icons.error));
+              },
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.center,
+                  colors: [
+                    Colors.black.withOpacity(0.5),
+                    Colors.black.withOpacity(0),
+                  ],
+                ),
+              ),
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                imageVo.label,
+                maxLines: 1,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.network(
-            image.imageUrl,
-            fit: BoxFit.cover,
-            cacheHeight: image.height,
-            cacheWidth: image.width,
-            errorBuilder: (context, error, stackTrace) {
-              return const Center(child: Icon(Icons.error));
-            },
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.center,
-                colors: [
-                  Colors.black.withOpacity(0.5),
-                  Colors.black.withOpacity(0),
-                ],
-              ),
-            ),
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              image.label,
-              maxLines: 1,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
+  }
+
+  unFocusTextField() {
+    if (widget.focusNode?.hasFocus == true) {
+      widget.focusNode?.unfocus();
+    }
   }
 }

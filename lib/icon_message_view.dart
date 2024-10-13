@@ -1,20 +1,24 @@
-part of 'main.dart';
+import 'package:flutter/material.dart';
 
-Widget _iconMessageView({
+Widget iconMessageView({
   required IconData icon,
   required String message,
+  double iconSize = 100,
+  textColor = Colors.black,
+  double? topMargin,
 }) {
-  return Center(
-    child: Column(
-      children: [
-        Icon(
-          icon,
-          size: 100,
-          color: Colors.grey,
-        ),
-        const SizedBox(height: 16),
-        Text(message),
-      ],
-    ),
+  return Column(
+    mainAxisAlignment:
+        topMargin == null ? MainAxisAlignment.center : MainAxisAlignment.start,
+    children: [
+      SizedBox(height: topMargin),
+      Icon(
+        icon,
+        size: iconSize,
+        color: Colors.grey,
+      ),
+      const SizedBox(height: 16),
+      Text(message, style: TextStyle(color: textColor)),
+    ],
   );
 }

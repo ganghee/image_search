@@ -1,7 +1,9 @@
 part of 'main.dart';
 
 class _SearchPage extends StatefulWidget {
-  const _SearchPage();
+  final TabController tabController;
+
+  const _SearchPage({required this.tabController});
 
   @override
   State<_SearchPage> createState() => _SearchPageState();
@@ -10,6 +12,17 @@ class _SearchPage extends StatefulWidget {
 class _SearchPageState extends State<_SearchPage> {
   late final TextEditingController _textFieldController =
       TextEditingController();
+  late final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    widget.tabController.addListener(() {
+      if (_focusNode.hasFocus) {
+        _focusNode.unfocus();
+      }
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -26,6 +39,7 @@ class _SearchPageState extends State<_SearchPage> {
             Expanded(
               child: TextField(
                 controller: _textFieldController,
+                focusNode: _focusNode,
                 textInputAction: TextInputAction.search,
                 decoration: const InputDecoration(
                   hintText: '검색어를 입력하세요',
@@ -62,7 +76,10 @@ class _SearchPageState extends State<_SearchPage> {
     } else if (searchStatus.isLoading) {
       return _loadingView();
     } else if (searchStatus.isSuccess) {
-      return _imageListView();
+      return _ImageListView(
+        images: (searchStatus as SuccessSearchStatus).imagePagingVo.items,
+        focusNode: _focusNode,
+      );
     } else if (searchStatus.isFailure) {
       return _errorView();
     } else {
@@ -80,32 +97,18 @@ class _SearchPageState extends State<_SearchPage> {
   }
 
   Widget _errorView() {
-    return const Center(
-      child: Text('에러입니다.'),
-    );
-  }
-
-  Widget _imageListView() {
-    return _ImageListView(
-      images: context.select(
-        (SearchBloc bloc) => (bloc.state.searchStatus as SuccessSearchStatus)
-            .imagePagingVo
-            .items,
-      ),
+    return iconMessageView(
+      icon: Icons.error,
+      message: '검색에 실패했습니다',
+      topMargin: 80,
     );
   }
 
   Widget _initialView() {
-    return Expanded(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 100),
-          child: _iconMessageView(
-            icon: Icons.image_search,
-            message: '검색어를 입력하세요',
-          ),
-        ),
-      ),
+    return iconMessageView(
+      icon: Icons.image_search,
+      message: '검색어를 입력하세요',
+      topMargin: 80,
     );
   }
 
