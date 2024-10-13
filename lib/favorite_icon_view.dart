@@ -54,14 +54,9 @@ class _FavoriteIconViewState extends State<_FavoriteIconView>
           _favoriteAnimationController.reverse();
         });
       },
+      onTapCancel: _onOriginalShapeBack,
       onTapUp: (_) {
-        _favoriteAnimationController.reset();
-        setState(() {
-          _favoriteCurvedAnimation.curve = Curves.bounceOut;
-          isFavorite = !isFavorite;
-        });
-        _favoriteAnimationController.forward();
-        widget.onTap();
+        _onOriginalShapeBack();
       },
       child: ScaleTransition(
         scale: _favoriteCurvedAnimation,
@@ -72,5 +67,15 @@ class _FavoriteIconViewState extends State<_FavoriteIconView>
         ),
       ),
     );
+  }
+
+  _onOriginalShapeBack() {
+    _favoriteAnimationController.reset();
+    setState(() {
+      _favoriteCurvedAnimation.curve = Curves.bounceOut;
+      isFavorite = !isFavorite;
+    });
+    _favoriteAnimationController.forward();
+    widget.onTap();
   }
 }
