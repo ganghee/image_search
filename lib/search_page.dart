@@ -37,47 +37,49 @@ class _SearchPageState extends State<_SearchPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
+    return Stack(
+      alignment: Alignment.topCenter,
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _textFieldController,
-                focusNode: _focusNode,
-                textInputAction: TextInputAction.search,
-                decoration: const InputDecoration(
-                  hintText: '검색어를 입력하세요',
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-                onChanged: (text) {
-                  if (_debounce?.isActive ?? false) _debounce?.cancel();
-                  _debounce = Timer(
-                    _debounceDuration,
-                    () {
-                      context.read<SearchBloc>().add(
-                            SearchImagesEvent(
-                              query: text.trim(),
-                              isRefresh: true,
-                            ),
-                          );
-                    },
-                  );
-                },
-              ),
-            ),
-            _queryClearIconButton(),
-          ],
-        ),
         _searchStatusView(
           searchStatus: context.select(
             (SearchBloc bloc) => bloc.state.searchStatus,
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 8, left: 4, right: 4),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(40),
+          ),
+          child: TextField(
+            controller: _textFieldController,
+            focusNode: _focusNode,
+            textInputAction: TextInputAction.search,
+            decoration: InputDecoration(
+              hintText: '검색어를 입력하세요',
+              prefixIcon: const Icon(Icons.search, color: Colors.grey),
+              suffixIcon: _queryClearIconButton(),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
+            ),
+            onChanged: (text) {
+              if (_debounce?.isActive ?? false) _debounce?.cancel();
+              _debounce = Timer(
+                _debounceDuration,
+                () {
+                  context.read<SearchBloc>().add(
+                        SearchImagesEvent(
+                          query: text.trim(),
+                          isRefresh: true,
+                        ),
+                      );
+                },
+              );
+            },
           ),
         ),
       ],
@@ -93,6 +95,7 @@ class _SearchPageState extends State<_SearchPage>
       return _ImageListView(
         images: (searchStatus as SuccessSearchStatus).imagePagingVo.items,
         focusNode: _focusNode,
+        topPadding: 70,
       );
     } else if (searchStatus.isFailure) {
       return _errorView();
@@ -114,7 +117,7 @@ class _SearchPageState extends State<_SearchPage>
     return iconMessageView(
       icon: Icons.error,
       message: '검색에 실패했습니다',
-      topMargin: 80,
+      topMargin: 120,
     );
   }
 
@@ -122,7 +125,7 @@ class _SearchPageState extends State<_SearchPage>
     return iconMessageView(
       icon: Icons.image_search,
       message: '검색어를 입력하세요',
-      topMargin: 80,
+      topMargin: 120,
     );
   }
 

@@ -82,12 +82,15 @@ class _HomeViewState extends State<_HomeView>
               ],
             ),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  _SearchPage(tabController: _tabController),
-                  const _FavoritePage(),
-                ],
+              child: ColoredBox(
+                color: Colors.black,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _SearchPage(tabController: _tabController),
+                    const _FavoritePage(),
+                  ],
+                ),
               ),
             ),
           ],
@@ -109,7 +112,7 @@ class _HomeViewState extends State<_HomeView>
       ),
       dividerColor: Colors.grey,
       labelColor: Colors.black,
-      labelStyle: Typography.material2021().black.headlineLarge,
+      labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
       unselectedLabelColor: Colors.grey,
       unselectedLabelStyle: Typography.material2021().black.bodyMedium,
       tabs: tabs,

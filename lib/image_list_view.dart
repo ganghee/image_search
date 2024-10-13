@@ -4,11 +4,13 @@ class _ImageListView extends StatefulWidget {
   final List<ImageVo> images;
   final FocusNode? focusNode;
   final String? emptyMessage;
+  final double topPadding;
 
   const _ImageListView({
     required this.images,
     this.focusNode,
     this.emptyMessage,
+    this.topPadding = 0,
   });
 
   @override
@@ -44,10 +46,11 @@ class _ImageListViewState extends State<_ImageListView> {
         ? iconMessageView(
             icon: Icons.search_off,
             message: widget.emptyMessage ?? '검색 결과가 없습니다',
-            topMargin: 80,
+            topMargin: 120,
           )
         : Expanded(
             child: GridView.builder(
+              padding: EdgeInsets.only(top: widget.topPadding),
               controller: _scrollController,
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
