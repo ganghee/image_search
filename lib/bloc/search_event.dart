@@ -9,9 +9,10 @@ final class SearchImagesEvent extends SearchEvent {
   SearchImagesEvent({required this.isRefresh, this.query});
 }
 
-final class UpdateLikeEvent extends SearchEvent {
-  final int imageId;
-  final bool isFavorite;
+final class UpdateFavoriteEvent extends SearchEvent {
+  final ImageVo imageVo;
 
-  UpdateLikeEvent(this.imageId, this.isFavorite);
+  UpdateFavoriteEvent(this.imageVo);
 }
+
+final class GetFavoriteImagesEvent extends SearchEvent {}

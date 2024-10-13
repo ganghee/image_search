@@ -6,4 +6,10 @@ abstract class SearchRepository {
     required String query,
     required int page,
   });
+
+  Future<void> saveFavoriteImage({
+    required ImageDto imageDto,
+  });
+
+  Future<List<ImageDto>> getFavoriteImages();
 }

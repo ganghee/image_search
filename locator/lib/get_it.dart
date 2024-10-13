@@ -1,8 +1,10 @@
+import 'package:data/data_source/favorite_local_data_source.dart';
 import 'package:data/data_source/search_remote_data_source.dart';
 import 'package:data/repository/search_repository_impl.dart';
 import 'package:dio/dio.dart';
 import 'package:domain/domain.dart';
 import 'package:get_it/get_it.dart';
+import 'package:local/data_source/favorite_local_data_source_impl.dart';
 import 'package:remote/data_source/search_remote_data_source_impl.dart';
 import 'package:remote/interceptor/header_interceptor.dart';
 import 'package:remote/service/search_service.dart';
@@ -28,10 +30,22 @@ _searchModule() {
   locator.registerLazySingleton<SearchRemoteDataSource>(
     () => SearchRemoteDataSourceImpl(searchService: locator()),
   );
+  locator.registerLazySingleton<FavoriteLocalDataSource>(
+    () => FavoriteLocalDataSourceImpl(),
+  );
   locator.registerLazySingleton<SearchRepository>(
-    () => SearchRepositoryImpl(searchRemoteDataSource: locator()),
+    () => SearchRepositoryImpl(
+      searchRemoteDataSource: locator(),
+      imageLocalDataSource: locator(),
+    ),
   );
   locator.registerLazySingleton(
     () => SearchImagesUseCase(searchRepository: locator()),
+  );
+  locator.registerLazySingleton(
+    () => GetFavoriteImagesUseCase(searchRepository: locator()),
+  );
+  locator.registerLazySingleton(
+    () => SaveFavoriteImageUseCase(searchRepository: locator()),
   );
 }

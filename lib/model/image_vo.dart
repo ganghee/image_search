@@ -23,27 +23,39 @@ class ImageVo {
     bool? isFavorite,
     int? height,
     int? width,
-  }) {
-    return ImageVo(
-      imageId: imageUrl ?? '',
-      imageUrl: imageUrl ?? '',
-      label: label ?? '',
-      isFavorite: isFavorite ?? false,
-      height: height ?? 200,
-      width: width ?? 200,
-    );
-  }
+  }) =>
+      ImageVo(
+        imageId: imageUrl ?? '',
+        imageUrl: imageUrl ?? '',
+        label: label ?? '',
+        isFavorite: isFavorite ?? false,
+        height: height ?? 200,
+        width: width ?? 200,
+      );
+
+  ImageDto toDto() => ImageDto(
+        collection: '',
+        datetime: '',
+        displaySiteName: label,
+        docUrl: '',
+        height: height,
+        imageUrl: imageUrl,
+        thumbnailUrl: '',
+        width: width,
+      );
 }
 
 extension ImageDtoExtension on ImageDto {
-  ImageVo mapper() {
-    return ImageVo(
-      imageId: imageUrl,
-      imageUrl: imageUrl,
-      label: displaySiteName,
-      isFavorite: false,
-      height: height,
-      width: width,
-    );
-  }
+  ImageVo mapper() => ImageVo(
+        imageId: imageUrl,
+        imageUrl: imageUrl,
+        label: displaySiteName,
+        isFavorite: false,
+        height: height,
+        width: width,
+      );
+}
+
+extension ImageVoItemsExtension on List<ImageDto> {
+  List<ImageVo> mapper() => map((imageVo) => imageVo.mapper()).toList();
 }

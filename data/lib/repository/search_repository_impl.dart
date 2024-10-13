@@ -1,22 +1,43 @@
+import 'package:data/data_source/favorite_local_data_source.dart';
 import 'package:data/data_source/search_remote_data_source.dart';
+import 'package:data/model/favorite_image_entity.dart';
 import 'package:domain/model/image_dto.dart';
 import 'package:domain/model/paging_dto.dart';
 import 'package:domain/repository/search_repository.dart';
 
 class SearchRepositoryImpl extends SearchRepository {
   final SearchRemoteDataSource _searchRemoteDataSource;
+  final FavoriteLocalDataSource _imageLocalDataSource;
 
   SearchRepositoryImpl({
     required SearchRemoteDataSource searchRemoteDataSource,
-  }) : _searchRemoteDataSource = searchRemoteDataSource;
+    required FavoriteLocalDataSource imageLocalDataSource,
+  })  : _searchRemoteDataSource = searchRemoteDataSource,
+        _imageLocalDataSource = imageLocalDataSource;
 
   @override
   Future<PagingDto<ImageDto>> searchImages({
     required String query,
     required int page,
-  }) async =>
-      await _searchRemoteDataSource.searchImages(
+  }) =>
+      _searchRemoteDataSource.searchImages(
         query: query,
         page: page,
       );
+
+  @override
+  Future<void> saveFavoriteImage({
+    required ImageDto imageDto,
+  }) =>
+      _imageLocalDataSource.saveFavoriteImage(
+        favoriteImageEntity: imageDto.toEntity(),
+      );
+
+  @override
+  Future<List<ImageDto>> getFavoriteImages() async {
+    final favoriteImages = await _imageLocalDataSource.getFavoriteImages();
+    return favoriteImages
+        .map((favoriteImageEntity) => favoriteImageEntity.mapper())
+        .toList();
+  }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:domain/use_case/search_images_use_case.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locator/get_it.dart';
@@ -34,7 +34,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (_) => SearchBloc(locator<SearchImagesUseCase>()),
+        create: (_) => SearchBloc(
+          locator<SearchImagesUseCase>(),
+          locator<GetFavoriteImagesUseCase>(),
+          locator<SaveFavoriteImageUseCase>(),
+        ),
         child: const _HomeView(),
       ),
     );

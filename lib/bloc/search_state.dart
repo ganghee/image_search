@@ -3,26 +3,31 @@ part of 'search_bloc.dart';
 final class SearchState {
   final SearchStatus searchStatus;
   final String? query;
+  final List<ImageVo> favoriteImages;
 
   SearchState({
     required this.searchStatus,
     required this.query,
+    required this.favoriteImages,
   });
 
   factory SearchState.initial() {
     return SearchState(
       searchStatus: InitialSearchStatus(),
       query: '',
+      favoriteImages: List.empty(),
     );
   }
 
   SearchState copyWith({
     SearchStatus? searchStatus,
     String? query,
+    List<ImageVo>? favoriteImages,
   }) {
     return SearchState(
       searchStatus: searchStatus ?? this.searchStatus,
       query: query ?? this.query,
+      favoriteImages: favoriteImages ?? this.favoriteImages,
     );
   }
 }
