@@ -3,10 +3,12 @@ part of 'main.dart';
 class _ImageListView extends StatefulWidget {
   final List<ImageVo> images;
   final FocusNode? focusNode;
+  final String? emptyMessage;
 
   const _ImageListView({
     required this.images,
     this.focusNode,
+    this.emptyMessage,
   });
 
   @override
@@ -35,7 +37,7 @@ class _ImageListViewState extends State<_ImageListView> {
     return widget.images.isEmpty
         ? iconMessageView(
             icon: Icons.search_off,
-            message: '검색 결과가 없습니다',
+            message: widget.emptyMessage ?? '검색 결과가 없습니다',
             topMargin: 80,
           )
         : Expanded(
@@ -58,6 +60,7 @@ class _ImageListViewState extends State<_ImageListView> {
 
   Widget _imageItemView({required ImageVo imageVo}) {
     return GestureDetector(
+      key: ValueKey(imageVo.imageId),
       onTap: () {
         _unFocusTextField();
         Navigator.of(context).push(
