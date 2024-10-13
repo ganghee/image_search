@@ -44,28 +44,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       return;
     }
 
-    PagingVo imagePagingVo = PagingVo.init();
+    PagingVo<ImageVo> imagePagingVo = PagingVo.init();
 
     // 이미지 검색 성공 상태인 경우 페이징 정보를 유지
     if (state.searchStatus.isSuccess && !event.isRefresh) {
-      final existingImagePagingVo =
-          (state.searchStatus as SuccessSearchStatus).imagePagingVo;
-
-      // 이미지 검색 중인 경우 또는 다음 페이지가 없는 경우 무시
-      if (existingImagePagingVo.isPageLoading ||
-          !existingImagePagingVo.hasNextPage) {
-        return;
-      }
-
-      imagePagingVo = existingImagePagingVo.copyWith(isPageLoading: true);
-      emit(
-        state.copyWith(
-          searchStatus: SuccessSearchStatus(
-            imagePagingVo: imagePagingVo as PagingVo<ImageVo>,
-          ),
-        ),
-      );
+      imagePagingVo = (state.searchStatus as SuccessSearchStatus).imagePagingVo;
     }
+
+    // 이미지 API 검색 중인 경우 또는 다음 페이지가 없는 경우 무시
+    if (imagePagingVo.isPageLoading || !imagePagingVo.hasNextPage) {
+      return;
+    }
+
+    imagePagingVo = imagePagingVo.copyWith(isPageLoading: true);
+
+    emit(
+      state.copyWith(
+        searchStatus: SuccessSearchStatus(imagePagingVo: imagePagingVo),
+      ),
+    );
 
     // 초기 상태인 경우 검색 시 또는 검색어 변경 시 로딩 상태로 변경
     if (state.searchStatus.isInitial || event.isRefresh) {
@@ -74,28 +71,26 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     final List<ImageVo> images = [];
     if (!event.isRefresh) {
-      images.addAll(imagePagingVo.items as List<ImageVo>);
+      images.addAll(imagePagingVo.items);
     }
 
     try {
-      final newImagePagingVo = await _searchImagesUseCase(
+      final newImagePagingDto = await _searchImagesUseCase(
         query: event.query ?? (state.query ?? ''),
         page: event.isRefresh ? 1 : imagePagingVo.page + 1,
-      ).then((newImagePagingDto) {
-        images.addAll(
-          newImagePagingDto.documents
-              .map((imageDto) => imageDto.mapper())
-              .toList(),
-        );
-
-        return PagingVo(
-          items: images,
-          page: event.isRefresh ? 1 : imagePagingVo.page + 1,
-          totalCount: newImagePagingDto.metaDto.pageableCount,
-          hasNextPage: !newImagePagingDto.metaDto.isEnd,
-          isPageLoading: false,
-        );
-      });
+      );
+      images.addAll(
+        newImagePagingDto.documents
+            .map((imageDto) => imageDto.mapper())
+            .toList(),
+      );
+      final newImagePagingVo = PagingVo(
+        items: images,
+        page: event.isRefresh ? 1 : imagePagingVo.page + 1,
+        totalCount: newImagePagingDto.metaDto.pageableCount,
+        hasNextPage: !newImagePagingDto.metaDto.isEnd,
+        isPageLoading: false,
+      );
       emit(
         state.copyWith(
           query: event.query ?? (state.query ?? ''),
