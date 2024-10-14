@@ -49,20 +49,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     // 이미지 검색 성공 상태인 경우 페이징 정보를 유지
     if (state.searchStatus.isSuccess && !event.isRefresh) {
       imagePagingVo = (state.searchStatus as SuccessSearchStatus).imagePagingVo;
+      emit(
+        state.copyWith(
+          searchStatus: SuccessSearchStatus(
+            imagePagingVo: imagePagingVo.copyWith(isPageLoading: true),
+          ),
+        ),
+      );
     }
 
     // 이미지 API 검색 중인 경우 또는 다음 페이지가 없는 경우 무시
     if (imagePagingVo.isPageLoading || !imagePagingVo.hasNextPage) {
       return;
     }
-
-    imagePagingVo = imagePagingVo.copyWith(isPageLoading: true);
-
-    emit(
-      state.copyWith(
-        searchStatus: SuccessSearchStatus(imagePagingVo: imagePagingVo),
-      ),
-    );
 
     // 초기 상태인 경우 검색 시 또는 검색어 변경 시 로딩 상태로 변경
     if (state.searchStatus.isInitial || event.isRefresh) {
