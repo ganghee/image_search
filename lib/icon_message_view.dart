@@ -4,7 +4,7 @@ Widget iconMessageView({
   required IconData icon,
   required String message,
   double iconSize = 100,
-  textColor = Colors.white,
+  textColor = Colors.black,
   double? topMargin,
 }) {
   return Column(
