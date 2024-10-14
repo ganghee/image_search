@@ -84,15 +84,12 @@ class _HomeViewState extends State<_HomeView>
               ],
             ),
             Expanded(
-              child: ColoredBox(
-                color: Colors.black,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _SearchPage(tabController: _tabController),
-                    const _FavoritePage(),
-                  ],
-                ),
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _SearchPage(tabController: _tabController),
+                  const _FavoritePage(),
+                ],
               ),
             ),
           ],
