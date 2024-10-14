@@ -4,7 +4,7 @@ import 'package:search/bloc/search_bloc.dart';
 import 'package:search/image_list/image_list_info.dart';
 import 'package:search/model/image_vo.dart';
 
-class SearchImageListInfoImpl extends ImageListInfo {
+class SearchImageListInfoImpl implements ImageListInfo {
   @override
   String emptyMessage() => '검색 결과가 없습니다';
 
@@ -34,7 +34,7 @@ class SearchImageListInfoImpl extends ImageListInfo {
   }
 }
 
-class FavoriteImageListInfoImpl extends ImageListInfo {
+class FavoriteImageListInfoImpl implements ImageListInfo {
   @override
   String emptyMessage() => '즐겨찾기한 이미지가 없습니다';
 
