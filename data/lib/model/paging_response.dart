@@ -5,11 +5,11 @@ import 'package:domain/model/paging_dto.dart';
 class PagingResponse<T extends DataToDomainMapper<DomainT>, DomainT>
     extends DataToDomainMapper<PagingDto<DomainT>> {
   final MetaResponse metaResponse;
-  final List<T> documents;
+  final List<T> documentResponse;
 
   PagingResponse({
     required this.metaResponse,
-    required this.documents,
+    required this.documentResponse,
   });
 
   factory PagingResponse.fromJson(
@@ -19,13 +19,14 @@ class PagingResponse<T extends DataToDomainMapper<DomainT>, DomainT>
   ) {
     return PagingResponse(
       metaResponse: MetaResponse.fromJson(json['meta']),
-      documents: (json['documents'] as List).map((e) => fromJsonT(e)).toList(),
+      documentResponse:
+          (json['documents'] as List).map((e) => fromJsonT(e)).toList(),
     );
   }
 
   @override
   PagingDto<DomainT> mapper() => PagingDto(
         metaDto: metaResponse.mapper(),
-        documents: documents.map((e) => e.mapper()).toList(),
+        documents: documentResponse.mapper(),
       );
 }
