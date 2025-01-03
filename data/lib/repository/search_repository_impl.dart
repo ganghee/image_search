@@ -1,5 +1,6 @@
 import 'package:data/data_source/favorite_local_data_source.dart';
 import 'package:data/data_source/search_remote_data_source.dart';
+import 'package:data/mapper/data_to_domain_mapper.dart';
 import 'package:data/model/favorite_image_entity.dart';
 import 'package:domain/model/image_dto.dart';
 import 'package:domain/model/paging_dto.dart';
@@ -36,9 +37,7 @@ class SearchRepositoryImpl extends SearchRepository {
   @override
   Future<List<ImageDto>> getFavoriteImages() async {
     final favoriteImages = await _imageLocalDataSource.getFavoriteImages();
-    return favoriteImages
-        .map((favoriteImageEntity) => favoriteImageEntity.mapper())
-        .toList();
+    return favoriteImages.mapper();
   }
 
   @override
