@@ -1,11 +1,11 @@
 part of 'search_bloc.dart';
 
-final class SearchState {
+final class SearchState extends Equatable {
   final SearchStatus searchStatus;
   final String? query;
   final List<ImageVo> favoriteImages;
 
-  SearchState({
+  const SearchState({
     required this.searchStatus,
     required this.query,
     required this.favoriteImages,
@@ -29,9 +29,15 @@ final class SearchState {
         query: query ?? this.query,
         favoriteImages: favoriteImages ?? this.favoriteImages,
       );
+
+  @override
+  List<Object?> get props => [searchStatus, query, favoriteImages];
 }
 
-sealed class SearchStatus {}
+sealed class SearchStatus extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
 final class InitialSearchStatus extends SearchStatus {}
 
@@ -41,12 +47,19 @@ final class SuccessSearchStatus extends SearchStatus {
   final PagingVo<ImageVo> imagePagingVo;
 
   SuccessSearchStatus({required this.imagePagingVo});
+
+  @override
+  List<Object?> get props => [imagePagingVo];
 }
 
 final class FailureSearchStatus extends SearchStatus {
   final String error;
+  final String inner = 'inner';
 
   FailureSearchStatus({required this.error});
+
+  @override
+  List<Object?> get props => [error];
 }
 
 extension SearchStatusExtension on SearchStatus {

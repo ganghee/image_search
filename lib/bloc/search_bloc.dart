@@ -3,6 +3,8 @@ import 'package:domain/use_case/get_favorite_images_use_case.dart';
 import 'package:domain/use_case/remove_favorite_image_use_case.dart';
 import 'package:domain/use_case/save_favorite_image_use_case.dart';
 import 'package:domain/use_case/search_images_use_case.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search/model/image_vo.dart';
 import 'package:search/model/paging_vo.dart';
@@ -79,9 +81,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         page: event.isRefresh ? 1 : imagePagingVo.page + 1,
       );
       images.addAll(
-        newImagePagingDto.documents
-            .map((imageDto) => imageDto.mapper())
-            .toList(),
+        newImagePagingDto.documents.mapper(),
       );
       final newImagePagingVo = PagingVo(
         items: images,
@@ -115,21 +115,33 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     final ImageVo selectedImageVo = event.imageVo;
     if (selectedImageVo.isFavorite) {
-      await _removeFavoriteImageUseCase(imageId: selectedImageVo.imageId);
+      try {
+        await _removeFavoriteImageUseCase(imageId: selectedImageVo.imageId);
+      } catch (e) {
+        debugPrintStack();
+      }
       final favoriteImages = state.favoriteImages
           .where((imageVo) => imageVo.imageId != selectedImageVo.imageId)
           .toList();
-      emit(state.copyWith(favoriteImages: favoriteImages));
+      _updateSearchedFavoriteStatus(
+        emit: emit,
+        selectedImageVo: selectedImageVo,
+        favoriteImages: favoriteImages,
+      );
     } else {
-      await _saveFavoriteImageUseCase(imageDto: selectedImageVo.toDto());
+      try {
+        await _saveFavoriteImageUseCase(imageDto: selectedImageVo.toDto());
+      } catch (e) {
+        debugPrintStack();
+      }
       final favoriteImages = state.favoriteImages.toList();
       favoriteImages.add(selectedImageVo.copyWith(isFavorite: true));
-      emit(state.copyWith(favoriteImages: favoriteImages));
+      _updateSearchedFavoriteStatus(
+        emit: emit,
+        selectedImageVo: selectedImageVo,
+        favoriteImages: favoriteImages,
+      );
     }
-    _updateSearchedFavoriteStatus(
-      emit: emit,
-      selectedImageVo: selectedImageVo,
-    );
   }
 
   _getFavoriteImages(
@@ -143,6 +155,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   _updateSearchedFavoriteStatus({
     required Emitter<SearchState> emit,
     required ImageVo selectedImageVo,
+    required List<ImageVo> favoriteImages,
   }) {
     if (state.searchStatus.isSuccess) {
       final searchedImages =
@@ -161,6 +174,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 .imagePagingVo
                 .copyWith(items: updatedFavoriteImages),
           ),
+          favoriteImages: favoriteImages,
         ),
       );
     }
