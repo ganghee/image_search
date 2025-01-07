@@ -1,11 +1,13 @@
-class PagingVo<T> {
+import 'package:equatable/equatable.dart';
+
+class PagingVo<T> extends Equatable {
   final int page;
   final int totalCount;
   final bool hasNextPage;
   final bool isPageLoading;
   final List<T> items;
 
-  PagingVo({
+  const PagingVo({
     required this.page,
     required this.totalCount,
     required this.hasNextPage,
@@ -42,4 +44,8 @@ class PagingVo<T> {
       items: items ?? this.items,
     );
   }
+
+  @override
+  List<Object?> get props =>
+      [page, totalCount, hasNextPage, isPageLoading, items];
 }

@@ -1,6 +1,7 @@
 import 'package:domain/model/image_dto.dart';
+import 'package:equatable/equatable.dart';
 
-class ImageVo {
+class ImageVo extends Equatable {
   final String imageId;
   final String imageUrl;
   final String label;
@@ -8,7 +9,7 @@ class ImageVo {
   final int height;
   final int width;
 
-  ImageVo({
+  const ImageVo({
     required this.imageId,
     required this.imageUrl,
     required this.label,
@@ -45,6 +46,10 @@ class ImageVo {
         width: width,
         isFavorite: isFavorite,
       );
+
+  @override
+  List<Object?> get props =>
+      [imageId, imageUrl, label, isFavorite, height, width];
 }
 
 extension ImageDtoExtension on ImageDto {

@@ -46,6 +46,25 @@ class FavoriteImageEntity extends DataToDomainMapper<ImageDto> {
         width: width,
         isFavorite: true,
       );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FavoriteImageEntity &&
+          runtimeType == other.runtimeType &&
+          imageId == other.imageId &&
+          imageUrl == other.imageUrl &&
+          displaySiteName == other.displaySiteName &&
+          height == other.height &&
+          width == other.width;
+
+  @override
+  int get hashCode =>
+      imageId.hashCode ^
+      imageUrl.hashCode ^
+      displaySiteName.hashCode ^
+      height.hashCode ^
+      width.hashCode;
 }
 
 extension FavoriteImageDtoExtension on ImageDto {
