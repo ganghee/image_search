@@ -6,11 +6,13 @@ abstract class ImageListInfo {
 
   List<ImageVo> get imageItems;
 
-  FocusNode? get focusNode;
+  FocusNode? get focusNode => null;
 
   double get topPadding;
 
-  getPaging({required BuildContext context});
+  getPaging({required BuildContext context}) => {};
 
   setImageItems({required List<ImageVo> images});
+
+  setFocusNode({required FocusNode focusNode}) => {};
 }
