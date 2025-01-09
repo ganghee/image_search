@@ -4,12 +4,15 @@ import 'package:local/db/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class FavoriteLocalDataSourceImpl implements FavoriteLocalDataSource {
+  final Database? _database;
+
+  FavoriteLocalDataSourceImpl([Database? database]) : _database = database;
+
   @override
   Future<int> saveFavoriteImage({
     required FavoriteImageEntity favoriteImageEntity,
   }) async {
-    final db = await DatabaseHelper.instance.database;
-    return await db.insert(
+    return await (_database ?? await DatabaseHelper.instance.database).insert(
       favoriteImageTable,
       favoriteImageEntity.toJson(),
       conflictAlgorithm: ConflictAlgorithm.replace,
@@ -18,8 +21,8 @@ class FavoriteLocalDataSourceImpl implements FavoriteLocalDataSource {
 
   @override
   Future<List<FavoriteImageEntity>> getFavoriteImages() async {
-    final db = await DatabaseHelper.instance.database;
-    final queries = await db.query(favoriteImageTable);
+    final queries = await (_database ?? await DatabaseHelper.instance.database)
+        .query(favoriteImageTable);
     return queries
         .map((element) => FavoriteImageEntity.fromJson(element))
         .toList();
@@ -27,8 +30,7 @@ class FavoriteLocalDataSourceImpl implements FavoriteLocalDataSource {
 
   @override
   Future<int> removeFavoriteImage({required String imageId}) async {
-    final db = await DatabaseHelper.instance.database;
-    return await db.delete(
+    return await (_database ?? await DatabaseHelper.instance.database).delete(
       favoriteImageTable,
       where: 'imageId = ?',
       whereArgs: [imageId],
