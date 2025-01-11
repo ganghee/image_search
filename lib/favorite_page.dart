@@ -12,10 +12,12 @@ class _FavoritePageState extends State<_FavoritePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final imageListInfo = FavoriteImageListInfoImpl();
-    imageListInfo.setImageItems(
-      images: context.select((SearchBloc bloc) => bloc.state.favoriteImages),
-    );
+
+    final imageListInfo = ImageListFactory.createImageList(
+      type: ImageListType.favorite,
+    )..setImageItems(
+        images: context.select((SearchBloc bloc) => bloc.state.favoriteImages),
+      );
 
     return _ImageListView(imageListInfo: imageListInfo);
   }
