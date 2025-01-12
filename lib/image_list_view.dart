@@ -13,6 +13,7 @@ class _ImageListView extends StatefulWidget {
 
 class _ImageListViewState extends State<_ImageListView> {
   late final ScrollController _scrollController = ScrollController();
+  late final double screenWidth = MediaQuery.of(context).size.width;
 
   @override
   void initState() {
@@ -68,82 +69,86 @@ class _ImageListViewState extends State<_ImageListView> {
   }
 
   Widget _imageItemView({required ImageVo imageVo}) {
-    return GestureDetector(
-      key: ValueKey(imageVo.imageId + imageVo.isFavorite.toString()),
-      onTap: () {
-        _unFocusTextField();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ImageDetailScreen(imageUrl: imageVo.imageUrl),
+    return Builder(
+      builder: (context) {
+        return GestureDetector(
+          key: ValueKey(imageVo.imageId + imageVo.isFavorite.toString()),
+          onTap: () {
+            _unFocusTextField();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    ImageDetailScreen(imageUrl: imageVo.imageUrl),
+              ),
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.1),
+                  Colors.black.withOpacity(0.05),
+                ],
+              ),
+            ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                // 이미지
+                Image.network(
+                  imageVo.imageUrl,
+                  fit: BoxFit.cover,
+                  cacheWidth: (screenWidth / 3).toInt(),
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(child: Icon(Icons.error));
+                  },
+                ),
+                // 이미지 라벨
+                Container(
+                  alignment: Alignment.topLeft,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.center,
+                      colors: [
+                        Colors.black.withOpacity(0.5),
+                        Colors.black.withOpacity(0),
+                      ],
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    imageVo.label,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                // 좋아요 아이콘
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: _FavoriteIconView(
+                      isFavorite: imageVo.isFavorite,
+                      onTap: () {
+                        context.read<SearchBloc>().add(
+                              UpdateFavoriteEvent(imageVo: imageVo),
+                            );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.05),
-            ],
-          ),
-        ),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            // 이미지
-            Image.network(
-              imageVo.imageUrl,
-              fit: BoxFit.cover,
-              cacheHeight: imageVo.height,
-              cacheWidth: imageVo.width,
-              errorBuilder: (context, error, stackTrace) {
-                return const Center(child: Icon(Icons.error));
-              },
-            ),
-            // 이미지 라벨
-            Container(
-              alignment: Alignment.topLeft,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
-                  colors: [
-                    Colors.black.withOpacity(0.5),
-                    Colors.black.withOpacity(0),
-                  ],
-                ),
-              ),
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                imageVo.label,
-                maxLines: 1,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            // 좋아요 아이콘
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: _FavoriteIconView(
-                  isFavorite: imageVo.isFavorite,
-                  onTap: () {
-                    context.read<SearchBloc>().add(
-                          UpdateFavoriteEvent(imageVo: imageVo),
-                        );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
