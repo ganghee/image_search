@@ -1,0 +1,309 @@
+{
+  "documents": [
+    {
+      "collection": "blog",
+      "datetime": "2016-07-06T23:33:42.000+09:00",
+      "display_sitename": "티스토리",
+      "doc_url": "https://alexoidov.tistory.com/936",
+      "height": 350,
+      "image_url": "http://www.2018breaknews.com/imgdata/2018breaknews_com/201607/201607062209388.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/LZBl2a240GI",
+      "width": 500
+    },
+    {
+      "collection": "news",
+      "datetime": "2009-07-10T14:24:11.000+09:00",
+      "display_sitename": "데일리안",
+      "doc_url": "http://v.media.daum.net/v/20090710142411457",
+      "height": 270,
+      "image_url": "http://t1.daumcdn.net/news/200907/10/dailian/20090710142411550.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/JkaoCuAXe3s",
+      "width": 550
+    },
+    {
+      "collection": "news",
+      "datetime": "2009-11-29T18:47:17.000+09:00",
+      "display_sitename": "경향신문",
+      "doc_url": "http://v.media.daum.net/v/20091129184717707",
+      "height": 324,
+      "image_url": "http://t1.daumcdn.net/news/200911/29/khan/20091129184716875.jpeg",
+      "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/KPuJNbnZh5n",
+      "width": 210
+    },
+    {
+      "collection": "news",
+      "datetime": "2009-06-07T18:55:06.000+09:00",
+      "display_sitename": "데일리안",
+      "doc_url": "http://v.media.daum.net/v/20090607185505591",
+      "height": 332,
+      "image_url": "http://t1.daumcdn.net/news/200906/07/dailian/20090607185505685.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/gwr6TalTD5",
+      "width": 531
+    },
+    {
+      "collection": "news",
+      "datetime": "2008-01-04T15:16:08.000+09:00",
+      "display_sitename": "뉴시스",
+      "doc_url": "http://v.media.daum.net/v/20080104151608308",
+      "height": 264,
+      "image_url": "http://t1.daumcdn.net/news/200801/04/newsis/20080104151606.766.0.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/KlkrlHLhHrf",
+      "width": 500
+    },
+    {
+      "collection": "news",
+      "datetime": "2009-06-29T17:19:11.000+09:00",
+      "display_sitename": "뉴시스",
+      "doc_url": "http://v.media.daum.net/v/20090629171911054",
+      "height": 600,
+      "image_url": "http://t1.daumcdn.net/news/200906/29/newsis/20090629171911158.jpg",
+      "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/5dzQN7tWGeZ",
+      "width": 331
+    },
+    {
+      "collection": "news",
+      "datetime": "2016-07-08T12:52:42.000+09:00",
+      "display_sitename": "브레이크뉴스강원",
+      "doc_url": "https://cp.news.search.daum.net/p/47153689",
+      "height": 350,
+      "image_url": "http://www.2018breaknews.com/imgdata/2018breaknews_com/201607/2016070844486207.jpg",
+      "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/AsYL96OKR0B",
+      "width": 500
+    },
+    {
+      "collection": "blog",
+      "datetime": "2016-12-28T16:52:00.000+09:00",
+      "display_sitename": "네이버블로그",
+      "doc_url": "http://blog.naver.com/aseic2014/220896978181",
+      "height": 436,
+      "image_url": "https://dthumb-phinf.pstatic.net/?src=%22http%3A%2F%2Fwww.aseic.or.kr%2Fupload%2Fedit%2Ff52af7df-c6e1-4522-ac59-aae8f4d6ea8f.jpg%22\u0026type=m10000_10000",
+      "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/8OowOz8p8Pm",
+      "width": 640
+    },
+    {
+      "collection": "news",
+      "datetime": "2017-10-14T04:01:18.000+09:00",
+      "display_sitename": "중앙일보",
+      "doc_url": "http://v.media.daum.net/v/20171014040121900",
+      "height": 315,
+      "image_url": "https://t1.daumcdn.net/news/201710/14/joongang/20171014040119250mfte.jpg",
+      "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/CL9wIkLCmLa",
+      "width": 560
+    },
+    {
+      "collection": "blog",
+      "datetime": "2017-09-05T02:40:00.000+09:00",
+      "display_sitename": "네이버블로그",
+      "doc_url": "http://blog.naver.com/gaia9305/221089515086",
+      "height": 134,
+      "image_url": "https://postfiles.pstatic.net/MjAxNzA5MDVfMjAy/MDAxNTA0NTQ2NzY0MDAw.2v56ZprO-WWJQwdIeGXdjdxxaeowi4iGi2HkPZjpb18g.JTQJ0lSHdNqy0gMOaFqaDQ0zMhfqrAPbdqz202AHcNog.PNG.gaia9305/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.png?type=w580",
+      "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/J9oYXv1xqWE",
+      "width": 375
+    },
+    {
+      "collection": "etc",
+      "datetime": "2021-10-22T07:44:22.000+09:00",
+      "display_sitename": "",
+      "doc_url": "https://www.inven.co.kr/board/webzine/2888/8481",
+      "height": 504,
+      "image_url": "http://i1.ruliweb.com/img/18/02/21/161b8c46b894b5f68.png",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/C4X6KeGv3UM",
+      "width": 947
+    },
+    {
+      "collection": "blog",
+      "datetime": "2022-08-27T09:14:00.000+09:00",
+      "display_sitename": "네이버블로그",
+      "doc_url": "http://blog.naver.com/smartmarie/222859349801",
+      "height": 435,
+      "image_url": "https://postfiles.pstatic.net/MjAyMjA4MjdfMjkg/MDAxNjYxNTU4MDk2ODg4.MqSU0fpscFPFYZhoD_BQjSv8ZhRoX0R50SDfVsyJ18gg._ayEzxmF2iZ0PlVtt1yY1PgZ9tyO1zRqndUhTcqKKpQg.PNG.smartmarie/Image.png?type=w773",
+      "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/AWOAC4Jd3Xq",
+      "width": 773
+    },
+    {
+      "collection": "blog",
+      "datetime": "2022-08-27T09:14:00.000+09:00",
+      "display_sitename": "네이버블로그",
+      "doc_url": "http://blog.naver.com/smartmarie/222859349801",
+      "height": 435,
+      "image_url": "https://postfiles.pstatic.net/MjAyMjA4MjdfNzUg/MDAxNjYxNTU4MDc2Njc2.EW2XdIGOu4h_lJY6yRtXBWrje6JmGKytbHwsfKRFpsIg._we16DrHA5LRpowLY4S1FvOg-ql78ioDDtAb1LiMfA4g.PNG.smartmarie/Image.png?type=w773",
+      "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/76o9TgCIPDa",
+      "width": 773
+    },
+    {
+      "collection": "blog",
+      "datetime": "2024-04-10T16:32:15.000+09:00",
+      "display_sitename": "브런치",
+      "doc_url": "https://brunch.co.kr/@mrtolstol/35",
+      "height": 400,
+      "image_url": "http://t1.daumcdn.net/brunch/service/user/f3Zi/image/r0f8ZHBS2DrtLQIwEE3GGuZEkLs",
+      "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/9sJEup6A1X2",
+      "width": 600
+    },
+    {
+      "collection": "news",
+      "datetime": "2019-09-26T14:41:05.000+09:00",
+      "display_sitename": "프레시안",
+      "doc_url": "http://v.media.daum.net/v/20190926144105852",
+      "height": 360,
+      "image_url": "https://t1.daumcdn.net/news/201909/26/pressian/20190926144105753ezzf.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/EGM7bHkfn3A",
+      "width": 640
+    },
+    {
+      "collection": "blog",
+      "datetime": "2018-08-20T11:15:27.000+09:00",
+      "display_sitename": "티스토리",
+      "doc_url": "https://fhrl.tistory.com/584",
+      "height": 281,
+      "image_url": "https://t1.daumcdn.net/cfile/tistory/999AD24B5B7A214E12",
+      "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/IYG7iEthtT7",
+      "width": 500
+    },
+    {
+      "collection": "news",
+      "datetime": "2018-06-08T09:10:37.000+09:00",
+      "display_sitename": "아이뉴스24",
+      "doc_url": "http://v.media.daum.net/v/20180608091039786",
+      "height": 473,
+      "image_url": "https://t1.daumcdn.net/news/201806/08/inews24/20180608091037407qgdv.jpg",
+      "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/IsWiKo9sw5m",
+      "width": 680
+    },
+    {
+      "collection": "news",
+      "datetime": "2016-06-22T16:10:34.000+09:00",
+      "display_sitename": "정책브리핑",
+      "doc_url": "http://v.media.daum.net/v/20160622161035856",
+      "height": 329,
+      "image_url": "http://t1.daumcdn.net/news/201606/22/govpress/20160622161034838bzvq.jpg",
+      "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/LSycVA0HdC2",
+      "width": 520
+    },
+    {
+      "collection": "blog",
+      "datetime": "2014-12-03T00:38:25.000+09:00",
+      "display_sitename": "티스토리",
+      "doc_url": "https://sj365.tistory.com/1336",
+      "height": 381,
+      "image_url": "https://t1.daumcdn.net/cfile/tistory/236BDA4D547DDC8F19",
+      "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/EmCJOtJxnPi",
+      "width": 682
+    },
+    {
+      "collection": "news",
+      "datetime": "2009-09-15T17:14:10.000+09:00",
+      "display_sitename": "경향신문",
+      "doc_url": "http://v.media.daum.net/v/20090915171410053",
+      "height": 420,
+      "image_url": "http://t1.daumcdn.net/news/201610/16/khan/20161016154815460blvu.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/5TTG6Xb0HSG",
+      "width": 280
+    },
+    {
+      "collection": "blog",
+      "datetime": "2023-06-19T16:55:12.000+09:00",
+      "display_sitename": "티스토리",
+      "doc_url": "https://goodluck23.com/12",
+      "height": 1280,
+      "image_url": "https://blog.kakaocdn.net/dn/lK1v3/btskllFeo3n/cLPXoKljF8TCrvcaRdjLB0/img.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/cIt7BwIBrT",
+      "width": 1280
+    },
+    {
+      "collection": "blog",
+      "datetime": "2021-07-08T07:23:26.000+09:00",
+      "display_sitename": "브런치",
+      "doc_url": "https://brunch.co.kr/@mindclinic/552",
+      "height": 2592,
+      "image_url": "http://t1.daumcdn.net/brunch/service/user/7jVC/image/l553UvGsXYhH7NukYBtyfndW0Co.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/LmbvBL2QYbz",
+      "width": 3872
+    },
+    {
+      "collection": "blog",
+      "datetime": "2022-09-26T05:10:00.000+09:00",
+      "display_sitename": "네이버블로그",
+      "doc_url": "http://blog.naver.com/gkaoran/222878294040",
+      "height": 1080,
+      "image_url": "https://blogfiles.pstatic.net/MjAyMjA4MDRfMjI2/MDAxNjU5NTY0NzcwNjM2.-EGiYYSP5_SFEWw1KzSs07eOZbO8UFvf6oxNDlaBCCkg.CnN6lGFVFJYrdoQ2uDjIULsWkKZqpHxpE6vFRWDt0Qwg.JPEG.gkaoran/%EC%A7%80%EB%B0%A9%EC%9D%B4%EC%8B%9D%282%29.jpg?type=w1",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/GEPkmw33vO",
+      "width": 800
+    },
+    {
+      "collection": "blog",
+      "datetime": "2022-09-26T05:10:00.000+09:00",
+      "display_sitename": "네이버블로그",
+      "doc_url": "http://blog.naver.com/gkaoran/222878294040",
+      "height": 1800,
+      "image_url": "https://blogfiles.pstatic.net/MjAyMjA4MDRfMTE3/MDAxNjU5NTY0NzcwODYy.YOghpKG7C5DKCE5OrHPxvRPSkbh7a9UecmWPQe5zDngg.wRUXaXyWHylwm9TQU3F33S9TFxbov0kDT4F7txITsVgg.JPEG.gkaoran/%EC%A7%80%EB%B0%A9%EC%9D%B4%EC%8B%9D%283%29.jpg?type=w1",
+      "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/FYjG2dQSxNa",
+      "width": 800
+    },
+    {
+      "collection": "news",
+      "datetime": "2009-06-29T18:12:25.000+09:00",
+      "display_sitename": "경향신문",
+      "doc_url": "http://v.media.daum.net/v/20090629181225199",
+      "height": 225,
+      "image_url": "http://t1.daumcdn.net/news/200906/29/khan/20090629181225228.jpeg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/Blo9UowJIvE",
+      "width": 300
+    },
+    {
+      "collection": "etc",
+      "datetime": "2016-07-27T00:00:00.000+09:00",
+      "display_sitename": "imdb",
+      "doc_url": "https://www.imdb.com/title/tt5599692/",
+      "height": 281,
+      "image_url": "https://m.media-amazon.com/images/M/MV5BMzc1ZWU5ZDgtOGEzZi00ZDg2LTk1ZGMtNWZhNTIyZDZjMjk0XkEyXkFqcGc@._V1_QL75_UY281_CR4,0,190,281_.jpg",
+      "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/10qGlbr9OlY",
+      "width": 190
+    },
+    {
+      "collection": "etc",
+      "datetime": "2016-07-27T00:00:00.000+09:00",
+      "display_sitename": "imdb",
+      "doc_url": "https://www.imdb.com/title/tt5599692/",
+      "height": 218,
+      "image_url": "https://m.media-amazon.com/images/M/MV5BNWViZjc0NjgtMzg2Mi00ZTM3LWE3MGQtNjUyMmZiZTY4ZGFhXkEyXkFqcGc@._V1_QL75_UX291_.jpg",
+      "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/1atSLk30Q2o",
+      "width": 291
+    },
+    {
+      "collection": "etc",
+      "datetime": "2016-07-27T00:00:00.000+09:00",
+      "display_sitename": "imdb",
+      "doc_url": "https://www.imdb.com/title/tt5599692/",
+      "height": 218,
+      "image_url": "https://m.media-amazon.com/images/M/MV5BZjkzOWQ1MmQtOTgzMC00Zjg3LTg3MjEtYTA2ZTNmNDMyNzQzXkEyXkFqcGc@._V1_QL75_UX155_.jpg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/EGY7hjcfSxZ",
+      "width": 155
+    },
+    {
+      "collection": "news",
+      "datetime": "2012-11-27T18:45:11.000+09:00",
+      "display_sitename": "코리아헤럴드",
+      "doc_url": "http://v.media.daum.net/v/20121127184511437",
+      "height": 431,
+      "image_url": "http://t1.daumcdn.net/news/201211/27/korea_herald/20121127184511413.jpg",
+      "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/5aZObQoJkjZ",
+      "width": 650
+    },
+    {
+      "collection": "news",
+      "datetime": "2014-12-09T19:04:10.000+09:00",
+      "display_sitename": "연합뉴스",
+      "doc_url": "http://v.media.daum.net/v/20141209190410688",
+      "height": 500,
+      "image_url": "http://t1.daumcdn.net/news/201412/09/yonhap/20141209190410363.jpeg",
+      "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/E6eFnUHYDzW",
+      "width": 357
+    }
+  ],
+  "meta": {
+    "is_end": false,
+    "pageable_count": 87,
+    "total_count": 94
+  }
+}
