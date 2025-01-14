@@ -31,6 +31,7 @@ class _SearchPageState extends State<_SearchPage>
   void dispose() {
     _textFieldController.dispose();
     _debounce?.cancel();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -87,21 +88,19 @@ class _SearchPageState extends State<_SearchPage>
   }
 
   Widget _searchStatusView({required SearchStatus searchStatus}) {
-    if (searchStatus.isInitial) {
-      return _initialView();
-    } else if (searchStatus.isLoading) {
-      return _loadingView();
-    } else if (searchStatus.isSuccess) {
-      final imageListInfo = SearchImageListInfoImpl();
-      imageListInfo.setImageItems(
-        images: (searchStatus as SuccessSearchStatus).imagePagingVo.items,
-      );
-      imageListInfo.setFocusNode(focusNode: _focusNode);
-      return _ImageListView(imageListInfo: imageListInfo);
-    } else if (searchStatus.isFailure) {
-      return _errorView();
-    } else {
-      return const SizedBox();
+    switch (searchStatus) {
+      case InitialSearchStatus():
+        return _initialView();
+      case LoadingSearchStatus():
+        return _loadingView();
+      case SuccessSearchStatus():
+        final imageListInfo =
+            ImageListFactory.createImageList(type: ImageListType.search)
+              ..setImageItems(images: (searchStatus).imagePagingVo.items)
+              ..setFocusNode(focusNode: _focusNode);
+        return _ImageListView(imageListInfo: imageListInfo);
+      case FailureSearchStatus():
+        return _errorView();
     }
   }
 
