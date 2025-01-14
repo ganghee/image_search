@@ -7,8 +7,8 @@ import 'package:locator/get_it.dart';
 import 'package:search/bloc/search_bloc.dart';
 import 'package:search/detail/image_detail_screen.dart';
 import 'package:search/icon_message_view.dart';
+import 'package:search/image_list/image_list_factory.dart';
 import 'package:search/image_list/image_list_info.dart';
-import 'package:search/image_list/image_list_info_impl.dart';
 import 'package:search/model/image_vo.dart';
 
 part 'favorite_icon_view.dart';
@@ -43,20 +43,20 @@ class MyApp extends StatelessWidget {
           locator<SaveFavoriteImageUseCase>(),
           locator<RemoveFavoriteImageUseCase>(),
         )..add(GetFavoriteImagesEvent()),
-        child: const _HomeView(),
+        child: const HomeView(),
       ),
     );
   }
 }
 
-class _HomeView extends StatefulWidget {
-  const _HomeView();
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  State<_HomeView> createState() => _HomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<_HomeView>
+class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController = TabController(
     length: 2,
@@ -102,7 +102,7 @@ class _HomeViewState extends State<_HomeView>
     required TabController tabController,
     required List<Tab> tabs,
   }) {
-    return TabBar.secondary(
+    return TabBar(
       controller: tabController,
       indicatorSize: TabBarIndicatorSize.tab,
       indicator: const UnderlineTabIndicator(
